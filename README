@@ -1,0 +1,14 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2575
+
+Add c++ std includes to your c++ file.
+
+execute
+:StdIncludes
+to add includes.
+
+Your code should use std:: explicitly.
+
+Screen shots:
+http://www.railmoon.com/vim-std-includes/vim-std-includes
+
+Please email me problems or suggestions.
