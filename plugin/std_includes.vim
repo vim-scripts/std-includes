@@ -128,9 +128,9 @@ function! s:add_std_includes()
 
     " find line number of last include
     1
-    let first_include_last_number = search( '^#include', 'cW' )
+    let first_include_line_number = search( '^#include', 'cW' )
     $
-    let last_include_last_number = search( '^#include', 'Wb' )
+    let last_include_line_number = search( '^#include', 'Wb' )
 
     " prepare list of includes
     let include_lines = []
@@ -140,18 +140,20 @@ function! s:add_std_includes()
     endfor
 
     call sort(include_lines)
-    call insert(include_lines, '', 0)
-    call add(include_lines, '')
 
-    call append(last_include_last_number + 1, include_lines)
+    if first_include_line_number != 0
+        call insert(include_lines, '', 0)
+    endif
+
+    call append(last_include_line_number, include_lines)
 
     " remove extra blank lines
-    exec first_include_last_number.','.last_include_last_number.'s/\(\n\)\n\+/\1\1/' 
+    exec first_include_line_number.','.last_include_line_number.'s/\(\n\)\n\+/\1\1/e' 
 
     $
-    let last_include_last_number = search( '^#include', 'Wb' )
+    let last_include_line_number = search( '^#include', 'Wb' )
 
-    exec last_include_last_number
+    exec last_include_line_number
 endfunction
 
 command! StdIncludes call s:add_std_includes()
